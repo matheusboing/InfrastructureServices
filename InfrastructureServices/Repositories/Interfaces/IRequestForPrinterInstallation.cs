@@ -6,9 +6,9 @@ namespace InfrastructureServices.Repositories.Interfaces
     {
         Task<List<RequestForPrinterInstallationModel>> FindAll();
         Task<RequestForPrinterInstallationModel> FindById(int id);
-        Task<RequestForPrinterInstallationModel> Add(RequestForPrinterInstallationModel usuario);
-        Task<RequestForPrinterInstallationModel> Update(RequestForPrinterInstallationModel usuario, int id);
-        Task<bool> Delete(int id);
+        Task<List<RequestForPrinterInstallationModel>> Add(RequestForPrinterInstallationModel requestModel);
+        Task<List<RequestForPrinterInstallationModel>> Update(RequestForPrinterInstallationModel requestModel, int id);
+        Task<List<RequestForPrinterInstallationModel>> Delete(int id);
 
     }
 }

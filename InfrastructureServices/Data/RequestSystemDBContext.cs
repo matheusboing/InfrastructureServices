@@ -12,6 +12,7 @@ namespace InfrastructureServices.Data
         }
 
         public DbSet<RequestForPrinterInstallationModel> Requests { get; set; }
+        //public DbSet<RequestForPrinterInstallationModel> Requests => Set<RequestForPrinterInstallationModel>();
         //public DbSet<UserModel> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

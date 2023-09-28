@@ -15,6 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RequestSystemDBContext>(options => options.UseOracle(builder.Configuration.GetConnectionString("DataBase")));
 builder.Services.AddScoped<IRequestForPrinterInstallation, RequestForPrinterInstallationRepository>();
 
+builder.Services.AddCors(options => options.AddPolicy(name: "RequestForPrinterInstallationOrigins", policy =>
+{
+    policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 
@@ -24,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("RequestForPrinterInstallationOrigins");
 
 app.UseHttpsRedirection();
 

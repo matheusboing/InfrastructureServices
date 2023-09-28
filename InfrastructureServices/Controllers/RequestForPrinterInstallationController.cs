@@ -1,4 +1,5 @@
 ﻿using InfrastructureServices.Model;
+using InfrastructureServices.Repositories;
 using InfrastructureServices.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,31 +25,30 @@ namespace InfrastructureServices.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RequestForPrinterInstallationModel>> FindPrinterRequestById(int id)
+        public async Task<ActionResult<List<RequestForPrinterInstallationModel>>> FindPrinterRequestById(int id)
         {
             RequestForPrinterInstallationModel request = await _requestForPrinterInstallationRepository.FindById(id);
             return Ok(request);
         }
 
         [HttpPost]
-        public async Task<ActionResult<RequestForPrinterInstallationModel>> AddPrinterRequests([FromBody] RequestForPrinterInstallationModel requestsModel)
+        public async Task<ActionResult<List<RequestForPrinterInstallationModel>>> AddPrinterRequests([FromBody] RequestForPrinterInstallationModel requestsModel)
         {
-            RequestForPrinterInstallationModel request = await _requestForPrinterInstallationRepository.Add(requestsModel);
+            List<RequestForPrinterInstallationModel> request = await _requestForPrinterInstallationRepository.Add(requestsModel);
             return Ok(request);
         }
 
         [HttpPut]
-        public async Task<ActionResult<RequestForPrinterInstallationModel>> UpdatePrinterRequest([FromBody] RequestForPrinterInstallationModel requestModel, int id)
+        public async Task<ActionResult<List<RequestForPrinterInstallationModel>>> UpdatePrinterRequest([FromBody] RequestForPrinterInstallationModel requestModel, int id)
         {
-            requestModel.Id = id;
-            RequestForPrinterInstallationModel request = await _requestForPrinterInstallationRepository.Update(requestModel, id);
+            List<RequestForPrinterInstallationModel> request = await _requestForPrinterInstallationRepository.Update(requestModel, id);
             return Ok(request);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RequestForPrinterInstallationModel>> Delete(int id)
+        public async Task<ActionResult<List<RequestForPrinterInstallationModel>>> Delete(int id)
         {
-            bool deleted = await _requestForPrinterInstallationRepository.Delete(id);
+           List<RequestForPrinterInstallationModel> deleted = await _requestForPrinterInstallationRepository.Delete(id);
             return Ok(deleted);
         }
 

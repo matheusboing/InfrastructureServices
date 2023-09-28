@@ -1,6 +1,7 @@
 ﻿using InfrastructureServices.Data;
 using InfrastructureServices.Model;
 using InfrastructureServices.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace InfrastructureServices.Repositories
@@ -21,14 +22,14 @@ namespace InfrastructureServices.Repositories
             return await _dbContext.Requests.ToListAsync();
         }
 
-        public async Task<RequestForPrinterInstallationModel> Add(RequestForPrinterInstallationModel requestModel)
+        public async Task<List<RequestForPrinterInstallationModel>> Add(RequestForPrinterInstallationModel requestModel)
         {
             _dbContext.Requests.Add(requestModel);
             await _dbContext.SaveChangesAsync();
-            return requestModel;
+            return await _dbContext.Requests.ToListAsync();
         }
 
-        public async Task<RequestForPrinterInstallationModel> Update(RequestForPrinterInstallationModel requestModel, int id)
+        public async Task<List<RequestForPrinterInstallationModel>> Update(RequestForPrinterInstallationModel requestModel, int id)
         {
             RequestForPrinterInstallationModel requestById = await FindById(id);
 
@@ -45,9 +46,9 @@ namespace InfrastructureServices.Repositories
 
             _dbContext.Requests.Update(requestById);
             await _dbContext.SaveChangesAsync();
-            return requestById;
+            return await _dbContext.Requests.ToListAsync();
         }
-        public async Task<bool> Delete(int id)
+        public async Task<List<RequestForPrinterInstallationModel>> Delete(int id)
         {
             RequestForPrinterInstallationModel requestById = await FindById(id);
 
@@ -58,7 +59,7 @@ namespace InfrastructureServices.Repositories
 
             _dbContext.Remove(requestById);
             await _dbContext.SaveChangesAsync();
-            return true;
+            return await _dbContext.Requests.ToListAsync();
         }
 
     }
